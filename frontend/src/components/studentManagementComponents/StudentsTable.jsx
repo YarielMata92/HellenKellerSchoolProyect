@@ -117,8 +117,10 @@ export default function StudentsTable({ students = [] }) {
               <tr key={student.id} className="hover:bg-gray-50">
                 <td className="py-2 px-4 border-b">{student.id}</td>
                 <td className="py-2 px-4 border-b">{student.name}</td>
-                <td className="py-2 px-4 border-b">{student.email}</td>
-                <td className="py-2 px-4 border-b">{student.age}</td>
+                <td className="py-2 px-4 border-b">{student.birthDate}</td>
+                <td className="py-2 px-4 border-b">{student.disability}</td>
+                <td className="py-2 px-4 border-b">{student.tutor}</td>
+                <td className="py-2 px-4 border-b">{student.program}</td>
               </tr>
             ))}
           </tbody>
