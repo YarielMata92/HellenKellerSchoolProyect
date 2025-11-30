@@ -88,19 +88,27 @@ export default function StudentsTable({ students = [] }) {
                 className="py-2 px-4 border-b cursor-pointer"
                 onClick={() => requestSort("name")}
               >
-                Nombre {sortConfig.key === "name" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
+                Name {sortConfig.key === "name" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
               </th>
               <th
                 className="py-2 px-4 border-b cursor-pointer"
-                onClick={() => requestSort("email")}
               >
-                Email {sortConfig.key === "email" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
+                BirthDate {sortConfig.key === "birthDate" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
               </th>
               <th
                 className="py-2 px-4 border-b cursor-pointer"
-                onClick={() => requestSort("age")}
               >
-                Edad {sortConfig.key === "age" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
+                Disability
+              </th>
+              <th
+                className="py-2 px-4 border-b cursor-pointer"
+              >
+                Tutor
+              </th>
+              <th
+                className="py-2 px-4 border-b cursor-pointer"
+              >
+                Program
               </th>
             </tr>
           </thead>
