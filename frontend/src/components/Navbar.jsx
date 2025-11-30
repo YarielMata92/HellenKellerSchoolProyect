@@ -1,45 +1,41 @@
 import { useState } from "react";
-import { Menu, X } from "lucide-react"; // opcional, icons
-
+import { Menu, X } from "lucide-react";
+import { Link, NavLink } from "react-router-dom";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
     <div className="fixed top-0 left-0 w-full bg-[#1791cd] shadow-md z-50">
-      {/* Navbar */}
       <nav className="flex items-center justify-between px-4 py-3">
-        <h1 className="text-xl font-bold text-white">
+
+        {/* CONTENEDOR IZQUIERDO: HAMBURGUESA + TÍTULO */}
+        <div className="flex items-center gap-3">
+          <button
+            className="text-white"
+            onClick={() => setOpen(true)}
+          >
+            <Menu size={28} />
+          </button>
+
+          <h1 className="text-xl font-bold text-white">
             Hellen Keller
-        </h1>
-
-        {/* Botón hamburguesa */}
-        <button
-          className="md:hidden text-gray-800"
-          onClick={() => setOpen(true)}
-        >
-          <Menu size={28} />
-        </button>
-
-        {/* Links en pantallas grandes */}
-        <div className="hidden md:flex gap-6 text-white">
-          <a href="#" className="hover:text-gray-400">Inicio</a>
-          <a href="#" className="hover:text-gray-400">Servicios</a>
-          <a href="#" className="hover:text-gray-400">Contacto</a>
+          </h1>
         </div>
+
       </nav>
 
       {/* Overlay oscuro */}
       {open && (
         <div
           onClick={() => setOpen(false)}
-          className="fixed inset-0 bg-black bg-opacity-40 md:hidden"
+          className="fixed inset-0 bg-black bg-opacity-40"
         ></div>
       )}
 
       {/* Sidebar izquierdo */}
       <div
-        className={`fixed top-0 left-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 md:hidden ${
+        className={`fixed top-0 left-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-500 ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -51,9 +47,14 @@ export default function Navbar() {
         </div>
 
         <ul className="flex flex-col p-4 space-y-4 text-gray-700">
-          <li><a href="#" className="hover:text-green-600">Inicio</a></li>
-          <li><a href="#" className="hover:text-green-600">Servicios</a></li>
-          <li><a href="#" className="hover:text-green-600">Contacto</a></li>
+          <li><a href="#" className="hover:text-[#1791cd]">Inicio</a></li>
+          <li><a href="#" className="hover:text-[#1791cd]">Grupos</a></li>
+          <Link to="students" className="hover:text-[#1791cd]">
+            Estudiantes
+          </Link>
+          <li><a href="#" className="hover:text-[#1791cd]">Programas</a></li>
+          <li><a href="#" className="hover:text-[#1791cd]">Planes</a></li>
+          <li><a href="#" className="hover:text-[#1791cd]">Contacto</a></li>
         </ul>
       </div>
     </div>

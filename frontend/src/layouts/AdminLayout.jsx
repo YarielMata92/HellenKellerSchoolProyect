@@ -11,7 +11,7 @@ export default function AdminLayout(){
     <div className="flex h-screen">
       <Navbar />
 
-      <div className="flex-1 overflow-auto min-h-screen mt-12 bg-orange-300">
+      <div className="flex-1 overflow-auto min-h-screen mt-12">
         <Outlet />
       </div>
     </div>

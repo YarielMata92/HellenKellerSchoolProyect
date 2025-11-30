@@ -4,9 +4,13 @@ import './index.css';
 import LogIn from './pages/LogIn'
 import AdminLayout from './layouts/AdminLayout';
 import DashboardHome from './components/DashboardHome';
+import StudentDashboard from "./pages/StudentDashboard";
+import StudentsManagement from "./pages/StudentsManagement";
+import StudentForm from './components/studentManagementComponents/StudentForm';
 
 function App() {
    return (
+    //TODO separar rutas en archivos
     <BrowserRouter>
       <Routes>
         {/* Ruta default */}
@@ -17,6 +21,9 @@ function App() {
 
         <Route path="/dashboard" element={<AdminLayout />}> 
          <Route index element={<DashboardHome />} />
+         <Route path="student" element={<StudentDashboard />} />
+         <Route path="students" element={<StudentsManagement />} />
+         <Route path="students/form" element={<StudentForm />} />
         </Route>
 
         {/* Cualquier ruta desconocida*/}
