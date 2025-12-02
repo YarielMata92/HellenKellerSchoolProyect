@@ -60,3 +60,13 @@ export const createUser = async (req, res) => {
     res.status(500).json({ error: 'Error interno' });
   }
 };
+
+export const getUsersTeachers = async (req, res) => {
+  try{
+    const result = await pool.query("SELECT u.id, u.name, u.lastname from users u JOIN user_roles ur ON u.id = ur.user_id JOIN roles r ON ur.role_id = r.id WHERE r.role = 'teacher' OR r.role = 'TEACHER'")
+    res.json(result.rows);
+  }catch(err){
+    console.log(err)
+  }
+  
+}

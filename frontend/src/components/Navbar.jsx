@@ -48,7 +48,9 @@ export default function Navbar() {
 
         <ul className="flex flex-col p-4 space-y-4 text-gray-700">
           <li><a href="#" className="hover:text-[#1791cd]">Inicio</a></li>
-          <li><a href="#" className="hover:text-[#1791cd]">Grupos</a></li>
+          <Link to="groups" className="hover:text-[#1791cd]">
+            Grupos
+          </Link>
           <Link to="students" className="hover:text-[#1791cd]">
             Estudiantes
           </Link>

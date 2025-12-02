@@ -7,6 +7,8 @@ import DashboardHome from './components/DashboardHome';
 import StudentDashboard from "./pages/StudentDashboard";
 import StudentsManagement from "./pages/StudentsManagement";
 import StudentForm from './components/studentManagementComponents/StudentForm';
+import GroupsManagement from './pages/GroupsManagement';
+import GroupsForm from './components/groupsManagementComponents/GroupsForm';
 
 function App() {
    return (
@@ -24,6 +26,8 @@ function App() {
          <Route path="student" element={<StudentDashboard />} />
          <Route path="students" element={<StudentsManagement />} />
          <Route path="students/form" element={<StudentForm />} />
+         <Route path="groups" element={<GroupsManagement />} />
+         <Route path="groups/form" element={<GroupsForm />} />
         </Route>
 
         {/* Cualquier ruta desconocida*/}

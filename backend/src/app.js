@@ -2,8 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import usersRouter from './routes/users.js';
 import dotenv from 'dotenv';
-import {pool} from './db.js';
-import bcrypt from 'bcrypt'
+import groupsRouter from './routes/groups.js';
+import educationalProgramRouter from './routes/educationalProgram.js'
 dotenv.config();
 
 const allowedOrigins = [
@@ -26,7 +26,11 @@ app.use(cors({
 }));
 app.use(express.json());
 
+
 app.use('/api/users', usersRouter);
+app.use('/dashboard/groups', groupsRouter );
+app.use('/dashboard/programs', educationalProgramRouter );
+
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
