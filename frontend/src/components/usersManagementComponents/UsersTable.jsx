@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getAllUsers } from "../../services/Users.service";
+import { getAllUsers, deleteUser } from "../../services/Users.service";
 
 
 
@@ -19,10 +19,8 @@ export default function UsersTable() {
 
   const fetchData = async () => {
     try {
-      console.log(getAllUsers())
       const data = await getAllUsers();
       setTableData(data)
-      console.log(tableData)
     } catch (err) {
       console.log(err)
     }
@@ -38,7 +36,7 @@ export default function UsersTable() {
     if (selectedRow.id) {
       if (window.confirm("Quieres eliminar este registro?")) {
         const { id } = selectedRow;
-        //const result = deleteGroup(id);
+        const result = deleteUser(id);
         console.log(result)
       }
       fetchData();
@@ -61,6 +59,7 @@ export default function UsersTable() {
             <th className="py-2 px-4 border-b text-left">Nombre</th>
             <th className="py-2 px-4 border-b text-left">Apellido</th>
             <th className="py-2 px-4 border-b text-left">Email</th>
+            <th className="py-2 px-4 border-b text-left">Rol</th>
           </tr>
         </thead>
 
@@ -76,6 +75,7 @@ export default function UsersTable() {
               <td>{user.name}</td>
               <td>{user.lastname}</td>
               <td>{user.email}</td>
+              <td>{user.role}</td>
             </tr>
           ))}
         </tbody>

@@ -42,7 +42,7 @@ export const login= async (req, res)=>{
 
 export const getUsers = async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM users ORDER BY id');
+    const result = await pool.query('SELECT u.id as id, u.name as name, u.lastname as lastname, u.dni as dni, u.email as email, r.role as role , r.id as role_id FROM users u JOIN user_roles ur ON u.id = ur.user_id JOIN roles r ON ur.role_id = r.id WHERE u.status = true');
     res.json(result.rows);
   } catch (err) {
     console.error(err);
@@ -51,18 +51,99 @@ export const getUsers = async (req, res) => {
 };
 
 export const createUser = async (req, res) => {
-  try {
-    const { dni, name, lastname, email  } = req.body;
-    
+  let userResult = [];
+  let roleResult = [];
+  console.log(req.body)
 
-    const password = bcrypt.hash(lastname)
-    const result = await pool.query('INSERT INTO users(dni, name, lastname, email, password) VALUES($1,$2,$3,$4,$5) RETURNING id, name', [dni, name, lastname, email, password]);
-    res.status(201).json(result.rows[0]);
+  
+  try {
+    const { dni, name, lastname, email, role_id  } = req.body;
+
+    const password = await bcrypt.hash(lastname,10)
+    const userResult = await pool.query('INSERT INTO users(dni, name, lastname, email, password) VALUES($1,$2,$3,$4,$5) RETURNING *', [dni, name, lastname, email, password]);
+    if(userResult.rowCount>0){
+          const userId = userResult.rows[0].id;
+          roleResult = await pool.query('INSERT INTO user_roles(user_id, role_id) VALUES($1,$2) RETURNING *', [userId, role_id]);
+    }
+    if(userResult.rowCount>0 && roleResult.rowCount>0){
+      res.status(201).json(userResult.rows[0]);
+    }
+
+    console.log(userResult)
+    
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Error interno' });
   }
+  
 };
+
+export const updateUser = async (req, res)=>{
+  let userResult;
+  let roleResult;
+
+  try {
+    const { id, dni, name, lastname, email, role_id } = req.body;
+
+    if (!id) {
+      return res.status(400).json({ error: "El ID es requerido para actualizar." });
+    }
+
+    userResult = await pool.query(
+      `UPDATE users 
+       SET dni = $1, name = $2, lastname = $3, email = $4 
+       WHERE id = $5 
+       RETURNING *`,
+      [dni, name, lastname, email, id]
+    );
+
+    if (userResult.rowCount === 0) {
+      return res.status(404).json({ error: "Usuario no encontrado." });
+    }
+
+    roleResult = await pool.query(
+      `UPDATE user_roles 
+       SET role_id = $1 
+       WHERE user_id = $2 
+       RETURNING *`,
+      [role_id, id]
+    );
+
+    if (roleResult.rowCount === 0) {
+      roleResult = await pool.query(
+        `INSERT INTO user_roles(user_id, role_id)
+         VALUES($1, $2)
+         RETURNING *`,
+        [id, role_id]
+      );
+    }
+
+    return res.status(200).json(userResult.rows[0]);
+
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Error interno del servidor." });
+  }
+}
+
+export const deleteUser = async(req, res)=>{
+  try {
+        const id = parseInt(req.params.id);
+        const result = await pool.query("UPDATE users set status = false WHERE id = $1 RETURNING *", [id])
+
+        if (result.rowCount === 0) {
+            return res.status(404).json({ message: "Usuario no encontrado" });
+        }
+
+        res.json({
+            message: "Usuario Eliminado",
+            data: result.rows
+        });
+    } catch (err) {
+        console.error(err)
+    }
+  
+}
 
 export const getUsersTeachers = async (req, res) => {
   try{

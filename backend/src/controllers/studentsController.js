@@ -16,7 +16,7 @@ export const createStudent = async (req, res) => {
 
 export const getStudents = async (req, res) => {
     try {
-        const result = await pool.query("SELECT s.id, s.dni, s.name, s.lastname, s.second_lastname, s.birthdate, s.disability, us.name as tutor, us.id as tutor_id, ed.name as educational_program, ed.id as educational_program_id FROM students s JOIN users us ON s.tutor_id = us.id JOIN educational_programs ed ON s.educational_program_id = ed.id WHERE visible = true")
+        const result = await pool.query("SELECT s.id, s.dni, s.name, s.lastname, s.second_lastname, s.birthdate, s.disability, us.name as tutor, us.id as tutor_id, g.name as group, g.id as group_id FROM students s JOIN users us ON s.tutor_id = us.id JOIN groups g ON s.group_id = g.id WHERE visible = true")
         console.log(result.rows)
         return res.status(200).json({
             success: true,

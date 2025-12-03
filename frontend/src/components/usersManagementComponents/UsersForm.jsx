@@ -1,9 +1,7 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { saveGroup, updateGroup, deleteGroup } from "../../services/Groups.service";
-import { getUserTeacher } from "../../services/Users.service";
-import { getEducationalPrograms } from "../../services/educationalPrograms.service";
 import { getAllRoles } from "../../services/roles.service";
+import { saveUser, updateUser } from "../../services/Users.service";
 
 export default function UsersForm() {
 
@@ -18,14 +16,15 @@ export default function UsersForm() {
         lastname: user?.lastname || "",
         dni: user?.dni || "",
         email: user?.email || "",
-        role: user?.role || ""
+        role: user?.role || "",
+        role_id: user?.role_id || ""
     })
 
     const [roles, setRoles] = useState([]);
 
-    const getUserRoles = async ()=>{
-        const {data} = await getAllRoles();
-        
+    const getUserRoles = async () => {
+        const { data } = await getAllRoles();
+        console.log(await getAllRoles())
         setRoles(data)
     }
 
@@ -43,33 +42,47 @@ export default function UsersForm() {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setUserForm({
-            ...groupForm,
+            ...userForm,
             [name]: value
         });
     }
 
-    const handleSave = (e) => {
+    const handleSave = async (e) => {
         e.preventDefault();
+        let actionSucced = false;
 
         if (!e.target.checkValidity()) {
             alert(e.target.reportValidity)
             return
         }
-        if (groupForm.id > 0) {
-            console.log("Actualizar")
-            const res = updateUser(userForm)
-            console.log(res)
-            alert("Actualizado correctamente")
+        if (userForm.id > 0) {
+            const res = await updateUser(userForm)
+            const { data } = res;
+            if (data.id > 0) {
+                actionSucced = true
+            }
+
         } else {
             console.log("Agregar")
-            const res = saveUser(userForm)
-            console.log(res)
-            alert("Actualizado correctamente")
+            const res = await saveUser(userForm)
+            const { data } = res;
+            if (data.id > 0) {
+                actionSucced = true
+            }
+
         }
-        
-        setTimeout(()=>{
-            navigate("/dashboard/users")
-        },1000)
+
+        if (actionSucced) {
+            alert("Actualizado correctamente")
+
+            setTimeout(() => {
+                navigate("/dashboard/users")
+            }, 1000)
+        }else{
+            alert("Error al guardar")
+        }
+
+
     }
 
 
@@ -139,9 +152,9 @@ export default function UsersForm() {
                         <label className="text-gray-600 font-medium">Rol</label>
                         <select
                             required
-                            name="role"
-                            value={userForm.role}
-                            onChange={(e) => setUserForm({ ...userForm, role: e.target.value })}
+                            name="role_id"
+                            value={userForm.role_id}
+                            onChange={(e) => setUserForm({ ...userForm, role_id: e.target.value })}
                             className="mt-1 w-full border border-gray-300 rounded-lg p-2 bg-white focus:ring-2 focus:ring-blue-400 focus:border-transparent"
                         >
                             <option value="">Seleccione un rol</option>

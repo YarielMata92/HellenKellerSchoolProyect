@@ -53,36 +53,36 @@ export default function Navbar() {
         <ul className="flex flex-col p-4 space-y-4 text-gray-700">
           <li><a href="#" className="hover:text-[#1791cd]">Inicio</a></li>
 
-          {role === 'therapist' || role === 'teacher' ? (
-            <Link to="groups" className="hover:text-[#1791cd]">
-              Grupos
-            </Link>
-          ) : null}
-
-          {role === 'admin' ? (
+          {role === 'master' ? (
             <Link to="users" className="hover:text-[#1791cd]">
               Usuarios
             </Link>
           ) : null}
 
-          {role === 'admin' ? (
+          {role === 'master' ? (
             <Link to="students" className="hover:text-[#1791cd]">
               Estudiantes
             </Link>
           ) : null}
 
-
-          {role === 'admin' ? (
+          {role === 'master' ? (
             <Link to="Programs" className="hover:text-[#1791cd]">
               Programas
             </Link>
           ) : null}
 
-          {role === 'therapist' || role === 'teacher' ? (
+          {role === 'therapist' || role === 'teacher' || role === 'master'? (
+            <Link to="groups" className="hover:text-[#1791cd]">
+              Grupos
+            </Link>
+          ) : null}
+
+          {role === 'therapist' || role === 'teacher' || role === 'master' ? (
             <Link to="Plans" className="hover:text-[#1791cd]">
               Planes
             </Link>
           ) : null}
+
           <li><a href="#" className="hover:text-[#1791cd]">Contacto</a></li>
         </ul>
       </div>
