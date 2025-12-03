@@ -9,6 +9,8 @@ import StudentsManagement from "./pages/StudentsManagement";
 import StudentForm from './components/studentManagementComponents/StudentForm';
 import GroupsManagement from './pages/GroupsManagement';
 import GroupsForm from './components/groupsManagementComponents/GroupsForm';
+import UsersManagement from './pages/UsersManagement';
+import UsersForm from './components/usersManagementComponents/UsersForm'
 
 function App() {
    return (
@@ -28,6 +30,8 @@ function App() {
          <Route path="students/form" element={<StudentForm />} />
          <Route path="groups" element={<GroupsManagement />} />
          <Route path="groups/form" element={<GroupsForm />} />
+         <Route path="users" element={<UsersManagement />} />
+         <Route path="users/form" element={<UsersForm />} />
         </Route>
 
         {/* Cualquier ruta desconocida*/}

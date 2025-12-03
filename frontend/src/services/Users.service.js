@@ -8,3 +8,21 @@ export const getUserTeacher = async (req, res)=>{
         console.error(err)
     }
 }
+
+export const getUserTutor = async (req, res)=>{
+    try{
+        const res = await axios.get("http://localhost:4000/api/users/tutors");
+        return res.data;
+    }catch(err){
+        console.error(err)
+    }
+}
+
+export const getAllUsers = async (req, res) =>{
+    try{
+        const res = await axios.get("http://localhost:4000/api/users/");
+        return res.data;
+    }catch(err){
+        console.error(err)
+    }
+}

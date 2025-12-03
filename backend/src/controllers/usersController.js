@@ -42,7 +42,7 @@ export const login= async (req, res)=>{
 
 export const getUsers = async (req, res) => {
   try {
-    const result = await pool.query('SELECT id, name FROM users ORDER BY id');
+    const result = await pool.query('SELECT * FROM users ORDER BY id');
     res.json(result.rows);
   } catch (err) {
     console.error(err);
@@ -52,8 +52,11 @@ export const getUsers = async (req, res) => {
 
 export const createUser = async (req, res) => {
   try {
-    const { name } = req.body;
-    const result = await pool.query('INSERT INTO users(name) VALUES($1) RETURNING id, name', [name]);
+    const { dni, name, lastname, email  } = req.body;
+    
+
+    const password = bcrypt.hash(lastname)
+    const result = await pool.query('INSERT INTO users(dni, name, lastname, email, password) VALUES($1,$2,$3,$4,$5) RETURNING id, name', [dni, name, lastname, email, password]);
     res.status(201).json(result.rows[0]);
   } catch (err) {
     console.error(err);
@@ -64,6 +67,16 @@ export const createUser = async (req, res) => {
 export const getUsersTeachers = async (req, res) => {
   try{
     const result = await pool.query("SELECT u.id, u.name, u.lastname from users u JOIN user_roles ur ON u.id = ur.user_id JOIN roles r ON ur.role_id = r.id WHERE r.role = 'teacher' OR r.role = 'TEACHER'")
+    res.json(result.rows);
+  }catch(err){
+    console.log(err)
+  }
+  
+}
+
+export const getUsersTutors = async (req, res) => {
+  try{
+    const result = await pool.query("SELECT u.id, u.name, u.lastname from users u JOIN user_roles ur ON u.id = ur.user_id JOIN roles r ON ur.role_id = r.id WHERE r.role = 'tutor' OR r.role = 'TUTOR'")
     res.json(result.rows);
   }catch(err){
     console.log(err)

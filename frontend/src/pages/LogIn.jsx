@@ -24,9 +24,12 @@ export default function LogIn() {
                 password
             })
             .then(response => {
-                console.log(response)
-                const {email, role} = response.data.user
+                console.log("Login Response",response)
+                const {id, name, lastname, email, role} = response.data.user
                 const objToSession = {
+                    id,
+                    name,
+                    lastname,
                     email,
                     role
                 }

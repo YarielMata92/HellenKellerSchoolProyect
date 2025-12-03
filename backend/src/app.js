@@ -4,6 +4,9 @@ import usersRouter from './routes/users.js';
 import dotenv from 'dotenv';
 import groupsRouter from './routes/groups.js';
 import educationalProgramRouter from './routes/educationalProgram.js'
+import studentsRouter from './routes/students.js'
+import rolesRouter from './routes/roles.js';
+
 dotenv.config();
 
 const allowedOrigins = [
@@ -28,8 +31,10 @@ app.use(express.json());
 
 
 app.use('/api/users', usersRouter);
+app.use('/api/roles', rolesRouter);
 app.use('/dashboard/groups', groupsRouter );
 app.use('/dashboard/programs', educationalProgramRouter );
+app.use('/dashboard/students', studentsRouter );
 
 
 const PORT = process.env.PORT || 4000;
