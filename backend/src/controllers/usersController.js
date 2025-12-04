@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 export const login= async (req, res)=>{
   try{
     const {email, password} = req.body;
-    const result = await pool.query('SELECT * FROM users WHERE email = $1 LIMIT 1', [email])
+    const result = await pool.query('SELECT * FROM users WHERE email = $1 OR dni = $2  LIMIT 1', [email, email])
 
     if(result.rowCount == 0){
       console.log("usuario no encontrado")

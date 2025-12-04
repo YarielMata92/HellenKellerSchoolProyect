@@ -22,7 +22,6 @@ export default function AdminDashboardMetrics(){
 
   return (
     <div className="p-4 space-y-10">
-        <h2>HOLAAA</h2>
 
       {/* ---------- MÉTRICAS (CARDS) ---------- */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
