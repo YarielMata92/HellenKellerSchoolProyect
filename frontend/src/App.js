@@ -11,6 +11,9 @@ import GroupsManagement from './pages/GroupsManagement';
 import GroupsForm from './components/groupsManagementComponents/GroupsForm';
 import UsersManagement from './pages/UsersManagement';
 import UsersForm from './components/usersManagementComponents/UsersForm'
+import ProgramsManagement from './pages/ProgramsManagement';
+import ProgramsForm from './components/programsManagementComponents/ProgramsForm';
+
 
 function App() {
    return (
@@ -32,6 +35,8 @@ function App() {
          <Route path="groups/form" element={<GroupsForm />} />
          <Route path="users" element={<UsersManagement />} />
          <Route path="users/form" element={<UsersForm />} />
+         <Route path="programs" element={<ProgramsManagement />} />
+         <Route path="programs/form" element={<ProgramsForm />} />
         </Route>
 
         {/* Cualquier ruta desconocida*/}

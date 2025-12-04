@@ -1,12 +1,15 @@
 import { Router } from 'express';
 
-import {getPrograms} from '../controllers/educationalProgramsController.js'
+import {getPrograms, createProgram, updateProgram, deleteProgram} from '../controllers/educationalProgramsController.js'
 
 
 
 const router = Router();
 
 router.get('/list', getPrograms)
+router.post('/form/save', createProgram)
+router.put('/form/update', updateProgram)
+router.put('/delete/:id', deleteProgram)
 
 
 
