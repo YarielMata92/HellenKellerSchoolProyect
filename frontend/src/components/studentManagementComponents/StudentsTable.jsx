@@ -2,7 +2,7 @@ import { UserMinus } from "lucide-react";
 import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link, NavLink } from "react-router-dom";
-import { deleteStudent, getStudents } from "../../services/Students.service";
+import { deleteStudent, getStudents, getTeacherStudents } from "../../services/Students.service";
 
 export default function StudentsTable({ students = [] }) {
 
@@ -13,7 +13,7 @@ export default function StudentsTable({ students = [] }) {
 
   const user = sessionStorage.getItem("userData")
     const userParsed = JSON.parse(user);
-    const {role} = userParsed
+    const {role, id} = userParsed
 
   const studentAddForm = () => {
     navigate("form")
@@ -31,13 +31,13 @@ export default function StudentsTable({ students = [] }) {
         const result = deleteStudent(id);
         console.log(result)
       }
-      fetchData();
+      fetchDataAsAdmin();
     } else {
       return
     }
   }
 
-  const fetchData = async () => {
+  const fetchDataAsAdmin = async () => {
     try {
       const { data } = await getStudents();
       const formatted = data.map(student => ({
@@ -51,8 +51,27 @@ export default function StudentsTable({ students = [] }) {
     }
   }
 
+   const fetchDataAsTeacher = async () => {
+    try {
+      const { data } = await getTeacherStudents(id);
+      const formatted = data.map(student => ({
+        ...student,
+        birthdate: student.birthdate.split("T")[0]  // "YYYY-MM-DD"
+      }));
+      setTableData(formatted)
+      console.log(formatted)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   useEffect(() => {
-    fetchData();
+    if(role=='admin' || role=='master'){
+      fetchDataAsAdmin();
+    }else if(role=='teacher' || role=='therapist'){
+      fetchDataAsTeacher(id)
+    }
+    
     console.log(tableData)
   }, [])
 

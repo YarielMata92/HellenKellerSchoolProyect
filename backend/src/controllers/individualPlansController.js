@@ -48,6 +48,55 @@ export const getIndividualPlans = async (req, res) => {
   }
 };
 
+export const getTeacherIndividualPlans = async (req, res) => {
+  const id = parseInt(req.params.id);
+  try {
+    const result = await pool.query(`
+      SELECT 
+        ip.id AS id,
+        st.id AS student_id,
+        st.name AS student_name,
+        st.lastname AS student_lastname,
+
+        us.id AS teacher_id,
+        us.name AS teacher_name,
+        us.lastname AS teacher_lastname,
+
+        ip.goal AS goal,
+
+        -- Si no hay reportes, usar ip.progress
+        COALESCE(pr.progress, ip.progress) AS progress,
+
+        pr.id AS report_id
+
+      FROM individualized_plans ip
+      JOIN students st ON ip.student_id = st.id AND st.visible = true
+      JOIN users us ON ip.teacher_id = us.id AND us.visible = true
+      
+      -- Obtener el último reporte, si existe
+      LEFT JOIN LATERAL (
+        SELECT pr.*
+        FROM progress_reports pr
+        WHERE pr.plan_id = ip.id 
+          AND pr.visible = true
+        ORDER BY pr.id DESC
+        LIMIT 1
+      ) pr ON TRUE
+
+      WHERE ip.visible = true AND ip.teacher_id = $1;
+    `,[id]);
+
+    return res.status(200).json({
+      success: true,
+      data: result.rows
+    });
+
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ success: false, message: 'Error obteniendo los planes.' });
+  }
+};
+
 export const createIndividualPlans = async (req, res)=>{
      try {
         const { student_id, teacher_id, goal, progress} = req.body;
