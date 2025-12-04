@@ -38,7 +38,7 @@ export default function IndividualPlansForm() {
         }
         const getAllStudents = async () => {
             try {
-                const {data} = await getStudents();
+                const { data } = await getStudents();
                 setStudents(data)
             } catch (err) {
                 console.log(data)
@@ -62,17 +62,18 @@ export default function IndividualPlansForm() {
         });
     }
 
-    const handleSave = (e) => {
+    const handleSave = async (e) => {
         e.preventDefault();
 
         console.log("Agregar")
-        const res = createIndividualPlan(individualPlanForm)
+        const res = await createIndividualPlan(individualPlanForm)
         console.log(res)
         alert("Actualizado correctamente")
 
         setTimeout(() => {
             navigate("/dashboard/individualplans")
         }, 1000)
+
     }
 
 

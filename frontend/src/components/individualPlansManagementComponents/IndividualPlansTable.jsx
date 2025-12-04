@@ -23,6 +23,7 @@ export default function IndividualPlansTable(){
 
     const fetchData = async ()=>{
         try{
+          console.log(await getIndividualPlan())
           const {data} = await getIndividualPlan();
           setTableData(data)
           console.log(tableData)

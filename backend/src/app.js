@@ -7,6 +7,7 @@ import educationalProgramRouter from './routes/educationalProgram.js'
 import studentsRouter from './routes/students.js'
 import rolesRouter from './routes/roles.js';
 import individualPlansRouter from './routes/individualPlan.js';
+import metricsRouter from './routes/metrics.js'
 import {pool} from "./db.js";
 import bcrypt from 'bcrypt';
 
@@ -135,6 +136,7 @@ app.use('/dashboard/groups', groupsRouter );
 app.use('/dashboard/programs', educationalProgramRouter );
 app.use('/dashboard/students', studentsRouter );
 app.use('/dashboard/individualplans', individualPlansRouter );
+app.use('/dashboard/metrics', metricsRouter );
 
 
 const PORT = process.env.PORT || 4000;

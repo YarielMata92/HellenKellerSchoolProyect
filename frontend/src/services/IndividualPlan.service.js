@@ -1,8 +1,8 @@
 import axios from "axios";
 const BASE_API_URL = 'http://localhost:4000/dashboard/individualplans'
 
-export const getIndividualPlan = async ()=>{
-     try {
+export const getIndividualPlan = async () => {
+    try {
         const res = await axios.get(`${BASE_API_URL}/list`);
         return res.data;
     } catch (err) {
@@ -11,27 +11,27 @@ export const getIndividualPlan = async ()=>{
     }
 }
 
-export const deleteIndividualPlan = (id)=>{
+export const deleteIndividualPlan = (id) => {
     const response = axios.put(`${BASE_API_URL}/delete/${id}`)
-    .then(()=>{
-        return response;
-    })
-    .catch(err=>{
-        console.error(err)
-    })
-}
-
-export const createIndividualPlan = (individualPlan)=>{
-    const response = axios.post(`${BASE_API_URL}/form/save`, individualPlan)
-        .then(res => {
-            return response
+        .then(() => {
+            return response;
         })
         .catch(err => {
-            console.log(err)
+            console.error(err)
         })
 }
 
-export const updateIndividualPlan = (individualPlan) =>{
+export const createIndividualPlan = async (individualPlan) => {
+
+    try {
+        const res = await axios.post(`${BASE_API_URL}/form/save`, individualPlan)
+        return res;
+    } catch (error) {
+        
+    }
+}
+
+export const updateIndividualPlan = (individualPlan) => {
     const response = axios.put(`${BASE_API_URL}/form/update`, individualPlan)
         .then(() => {
             return response
@@ -41,7 +41,7 @@ export const updateIndividualPlan = (individualPlan) =>{
         })
 }
 
-export const sendReport = (report) =>{
+export const sendReport = (report) => {
     console.log(report)
     const response = axios.post(`${BASE_API_URL}/form/report`, report)
         .then(() => {

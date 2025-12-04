@@ -5,7 +5,7 @@ import RecentReports from "../components/studentsDashboardComponents/RecentRepor
 import AlertsPanel from "../components/studentsDashboardComponents/AlertsPanel"
 import TherapyList from "../components/studentsDashboardComponents/TherapyList"
 
-export default function StudentDashboard() {
+export default function TutorDashboardMetrics() {
     return (
         <div className="min-h-screen p-6 bg-[var(--primary-2,#FBEBEB)] text-gray-900" style={{ fontFamily: '"Open Sans", system-ui, -apple-system, sans-serif' }}>
             <header className="max-w-6xl flex items-center justify-between mb-6">

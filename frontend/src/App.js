@@ -4,7 +4,6 @@ import './index.css';
 import LogIn from './pages/LogIn'
 import AdminLayout from './layouts/AdminLayout';
 import DashboardHome from './components/DashboardHome';
-import StudentDashboard from "./pages/StudentDashboard";
 import StudentsManagement from "./pages/StudentsManagement";
 import StudentForm from './components/studentManagementComponents/StudentForm';
 import GroupsManagement from './pages/GroupsManagement';
@@ -16,6 +15,7 @@ import ProgramsForm from './components/programsManagementComponents/ProgramsForm
 import IndividualPlansManagement from './pages/IndividualPlansManagement';
 import IndividualPlansForm from './components/individualPlansManagementComponents/IndividualPlansForm'
 import IndividualPlansReportForm from './components/individualPlansManagementComponents/IndividualPlansReportForm';
+import TutorDashboardMetrics from "./pages/TutorDashboardMetrics"
 
 function App() {
    return (
@@ -30,7 +30,7 @@ function App() {
 
         <Route path="/dashboard" element={<AdminLayout />}> 
          <Route index element={<DashboardHome />} />
-         <Route path="student" element={<StudentDashboard />} />
+         <Route path="student" element={<TutorDashboardMetrics />} />
          <Route path="students" element={<StudentsManagement />} />
          <Route path="students/form" element={<StudentForm />} />
          <Route path="groups" element={<GroupsManagement />} />
