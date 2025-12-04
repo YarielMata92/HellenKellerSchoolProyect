@@ -3,7 +3,6 @@
 ## Estructura
 - backend/: Express + Node.js
 - frontend/: React (create-react-app structure simplified)
-- docker-compose.yml: PostgreSQL + pgAdmin + backend + frontend (dev)
 
 ## Pasos (desarrollo local)
 
@@ -14,15 +13,9 @@
    ```
    npm install
    ```
-4. Crear tabla `users` en PostgreSQL:
-   ```sql
-   CREATE TABLE users (
-     id SERIAL PRIMARY KEY,
-     name VARCHAR(100)
-   );
-   INSERT INTO users(name) VALUES ('Juan'), ('María');
+
    ```
-5. Iniciar servidor:
+4. Iniciar servidor:
    ```
    npm run dev
    ```
@@ -38,8 +31,8 @@
    ```
    npm start
    ```
+
+4. Al iniciar el sistema se crean roles y un usuario master login -> master@master.com - master
 4. Abrir `http://localhost:3000` (React) y deberías ver la lista de usuarios.
 
-### Docker (opcional)
-Puedes usar `docker-compose.yml` incluido para levantar Postgres y pgAdmin. Revisa y ajusta variables antes de usar.
 
