@@ -1,14 +1,22 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
 
 export default function Navbar() {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
   const rolUsuario = sessionStorage.getItem("userData")
   const userData = JSON.parse(rolUsuario); // ahora sí es un objeto
 
   const role = userData.role;
+
+  const handleLogout = ()=>{
+    sessionStorage.clear();
+    navigate("/")
+
+  }
 
   return (
     <div className="fixed top-0 left-0 w-full bg-[#1791cd] shadow-md z-50">
@@ -59,7 +67,7 @@ export default function Navbar() {
             </Link>
           ) : null}
 
-          {role === 'master' ? (
+          {role === 'master' || role === 'therapist' || role === 'teacher' ? (
             <Link to="students" className="hover:text-[#1791cd]">
               Estudiantes
             </Link>
@@ -71,19 +79,26 @@ export default function Navbar() {
             </Link>
           ) : null}
 
-          {role === 'therapist' || role === 'teacher' || role === 'master'? (
+          {role === 'master' || role === 'therapist' || role === 'teacher' ? (
             <Link to="groups" className="hover:text-[#1791cd]">
               Grupos
             </Link>
           ) : null}
 
-          {role === 'therapist' || role === 'teacher' || role === 'master' ? (
+          {role === 'master' || role === 'therapist' || role === 'teacher' ? (
             <Link to="individualplans" className="hover:text-[#1791cd]">
               Planes
             </Link>
           ) : null}
 
-          <li><a href="#" className="hover:text-[#1791cd]">Contacto</a></li>
+          <li>
+            <a
+              onClick={handleLogout}
+              className="hover:text-[#1791cd] cursor-pointer"
+            >
+              LogOut
+            </a>
+          </li>
         </ul>
       </div>
     </div>

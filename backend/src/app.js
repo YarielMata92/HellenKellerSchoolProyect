@@ -32,6 +32,11 @@ async function initMasterRoleAndUser() {
 
       await pool.query(
         "INSERT INTO roles (role) VALUES ($1) RETURNING *",
+        ["admin"]
+      );
+
+      await pool.query(
+        "INSERT INTO roles (role) VALUES ($1) RETURNING *",
         ["teacher"]
       );
 

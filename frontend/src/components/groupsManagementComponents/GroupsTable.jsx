@@ -9,6 +9,10 @@ export default function GroupsTable({groups=[]}){
     const [tableData, setTableData] = useState([]) 
     const [selectedRow, setSelectedRow] = useState(null);
 
+    const user = sessionStorage.getItem("userData")
+    const userParsed = JSON.parse(user);
+    const {role} = userParsed
+
     const groupAddForm = ()=>{
         navigate("form")
     }
@@ -48,9 +52,9 @@ export default function GroupsTable({groups=[]}){
     return (
     <div className="overflow-x-auto">
         <div className="flex flex-row space-x-8 p-4">
-            <button className="bg-green-600 rounded-md p-1 hover:bg-green-800" onClick={groupAddForm}>Agregar</button>
-            <button className="bg-orange-600 rounded-md p-1 hover:bg-orange-800 disabled:bg-orange-800 disabled:cursor-not-allowed disabled:hover:bg-orange-800" disabled={!selectedRow} onClick={groupEditForm}>Editar</button>
-            <button className="bg-red-600 rounded-md p-1 hover:bg-red-800 disabled:bg-red-800 disabled:cursor-not-allowed disabled:hover:bg-red-800" disabled={!selectedRow} onClick={handleDelete}>Eliminar</button>
+            <button className="bg-green-600 rounded-md p-1 hover:bg-green-800 disabled:bg-green-800 disabled:cursor-not-allowed disabled:hover:bg-green-800" onClick={groupAddForm} disabled={role !== "admin" && role !== "master"}>Agregar</button>
+            <button className="bg-orange-600 rounded-md p-1 hover:bg-orange-800 disabled:bg-orange-800 disabled:cursor-not-allowed disabled:hover:bg-orange-800" disabled={!selectedRow || (role !== "admin" && role !== "master")} onClick={groupEditForm}>Editar</button>
+            <button className="bg-red-600 rounded-md p-1 hover:bg-red-800 disabled:bg-red-800 disabled:cursor-not-allowed disabled:hover:bg-red-800" disabled={!selectedRow || (role !== "admin" && role !== "master")} onClick={handleDelete}>Eliminar</button>
         </div>
       <table className="min-w-full bg-white border border-gray-300 rounded-lg overflow-hidden">
         
