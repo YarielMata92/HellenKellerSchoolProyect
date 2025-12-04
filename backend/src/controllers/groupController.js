@@ -28,6 +28,20 @@ export const getGroups = async (req, res) => {
     }
 }
 
+export const getTeacherGroups = async (req, res) => {
+    const id = parseInt(req.params.id);
+    try {
+        const result = await pool.query("SELECT g.id as id, g.name as name, g.description as description, ep.name as program_name, ep.id as program_id, u.name as teacher_name, u.lastname as teacher_lastname, u.id as teacher_id FROM groups g JOIN educational_programs ep ON g.educational_program_id = ep.id JOIN users u ON g.teacher_id = u.id WHERE g.visible = true AND g.teacher_id = $1;",[id])
+        console.log(result.rows)
+        return res.status(200).json({
+            success: true,
+            data: result.rows
+        });
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 export const updateGroup = async (req, res) => {
     try {
         const { id, name, description, educationalProgram, teacher } = req.body;

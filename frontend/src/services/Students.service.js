@@ -12,6 +12,17 @@ export const getStudents = async () => {
 
 }
 
+export const getTeacherStudents = async (id) => {
+    try {
+        const res = await axios.get(`${BASE_API_URL}/list/${id}`);
+        return res.data;
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
+
+}
+
 export const saveStudent = async (student) => {
     console.log(student)
     const response = axios.post(`${BASE_API_URL}/form/save`, student)

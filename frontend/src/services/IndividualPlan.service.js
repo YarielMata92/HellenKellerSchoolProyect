@@ -11,6 +11,16 @@ export const getIndividualPlan = async () => {
     }
 }
 
+export const getTeacherIndividualPlan = async (id) => {
+    try {
+        const res = await axios.get(`${BASE_API_URL}/list/${id}`);
+        return res.data;
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
+}
+
 export const deleteIndividualPlan = (id) => {
     const response = axios.put(`${BASE_API_URL}/delete/${id}`)
         .then(() => {

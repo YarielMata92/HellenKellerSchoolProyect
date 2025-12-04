@@ -12,6 +12,17 @@ export const getGroups = async () => {
 
 }
 
+export const getTeacherGroups = async (id) => {
+    try {
+        const res = await axios.get(`${BASE_API_URL}/list/${id}`);
+        return res.data;
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
+
+}
+
 export const saveGroup = async (group) => {
     console.log(group)
     const response = axios.post(`${BASE_API_URL}/form/save`, group)
