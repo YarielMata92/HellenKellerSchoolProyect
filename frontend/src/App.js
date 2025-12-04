@@ -4,9 +4,22 @@ import './index.css';
 import LogIn from './pages/LogIn'
 import AdminLayout from './layouts/AdminLayout';
 import DashboardHome from './components/DashboardHome';
+import StudentsManagement from "./pages/StudentsManagement";
+import StudentForm from './components/studentManagementComponents/StudentForm';
+import GroupsManagement from './pages/GroupsManagement';
+import GroupsForm from './components/groupsManagementComponents/GroupsForm';
+import UsersManagement from './pages/UsersManagement';
+import UsersForm from './components/usersManagementComponents/UsersForm'
+import ProgramsManagement from './pages/ProgramsManagement';
+import ProgramsForm from './components/programsManagementComponents/ProgramsForm';
+import IndividualPlansManagement from './pages/IndividualPlansManagement';
+import IndividualPlansForm from './components/individualPlansManagementComponents/IndividualPlansForm'
+import IndividualPlansReportForm from './components/individualPlansManagementComponents/IndividualPlansReportForm';
+import TutorDashboardMetrics from "./pages/TutorDashboardMetrics"
 
 function App() {
    return (
+    //TODO separar rutas en archivos
     <BrowserRouter>
       <Routes>
         {/* Ruta default */}
@@ -17,6 +30,18 @@ function App() {
 
         <Route path="/dashboard" element={<AdminLayout />}> 
          <Route index element={<DashboardHome />} />
+         <Route path="student" element={<TutorDashboardMetrics />} />
+         <Route path="students" element={<StudentsManagement />} />
+         <Route path="students/form" element={<StudentForm />} />
+         <Route path="groups" element={<GroupsManagement />} />
+         <Route path="groups/form" element={<GroupsForm />} />
+         <Route path="users" element={<UsersManagement />} />
+         <Route path="users/form" element={<UsersForm />} />
+         <Route path="programs" element={<ProgramsManagement />} />
+         <Route path="programs/form" element={<ProgramsForm />} />
+         <Route path="individualplans" element={<IndividualPlansManagement />} />
+         <Route path="individualplans/form" element={<IndividualPlansForm />} />
+         <Route path="individualplans/form/report" element={<IndividualPlansReportForm />} />
         </Route>
 
         {/* Cualquier ruta desconocida*/}
