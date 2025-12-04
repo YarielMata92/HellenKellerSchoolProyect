@@ -77,7 +77,7 @@ export default function StudentsTable({ students = [] }) {
             <th className="py-2 px-4 border-b text-left">Fecha Nacimiento</th>
             <th className="py-2 px-4 border-b text-left">Discapacidad</th>
             <th className="py-2 px-4 border-b text-left">Tutor</th>
-            <th className="py-2 px-4 border-b text-left">Programa</th>
+            <th className="py-2 px-4 border-b text-left">Grupo</th>
           </tr>
         </thead>
 
@@ -94,7 +94,7 @@ export default function StudentsTable({ students = [] }) {
               <td className="py-2 px-4 border-b">{student.birthdate}</td>
               <td className="py-2 px-4 border-b">{student.disability}</td>
               <td className="py-2 px-4 border-b">{student.tutor}</td>
-              <td className="py-2 px-4 border-b">{student.educational_program}</td>
+              <td className="py-2 px-4 border-b">{student.group_id}</td>
             </tr>
           ))}
         </tbody>

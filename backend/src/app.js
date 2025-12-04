@@ -6,6 +6,7 @@ import groupsRouter from './routes/groups.js';
 import educationalProgramRouter from './routes/educationalProgram.js'
 import studentsRouter from './routes/students.js'
 import rolesRouter from './routes/roles.js';
+import individualPlansRouter from './routes/individualPlan.js';
 import {pool} from "./db.js";
 import bcrypt from 'bcrypt';
 
@@ -27,6 +28,21 @@ async function initMasterRoleAndUser() {
       newRole = await pool.query(
         "INSERT INTO roles (role) VALUES ($1) RETURNING *",
         [roleName]
+      );
+
+      await pool.query(
+        "INSERT INTO roles (role) VALUES ($1) RETURNING *",
+        ["teacher"]
+      );
+
+      await pool.query(
+        "INSERT INTO roles (role) VALUES ($1) RETURNING *",
+        ["therapist"]
+      );
+
+      await pool.query(
+        "INSERT INTO roles (role) VALUES ($1) RETURNING *",
+        ["tutor"]
       );
 
       roleId = newRole.rows[0].id;
@@ -113,6 +129,7 @@ app.use('/api/roles', rolesRouter);
 app.use('/dashboard/groups', groupsRouter );
 app.use('/dashboard/programs', educationalProgramRouter );
 app.use('/dashboard/students', studentsRouter );
+app.use('/dashboard/individualplans', individualPlansRouter );
 
 
 const PORT = process.env.PORT || 4000;

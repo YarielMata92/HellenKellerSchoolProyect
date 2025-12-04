@@ -42,7 +42,7 @@ export const login= async (req, res)=>{
 
 export const getUsers = async (req, res) => {
   try {
-    const result = await pool.query('SELECT u.id as id, u.name as name, u.lastname as lastname, u.dni as dni, u.email as email, r.role as role , r.id as role_id FROM users u JOIN user_roles ur ON u.id = ur.user_id JOIN roles r ON ur.role_id = r.id WHERE u.status = true');
+    const result = await pool.query('SELECT u.id as id, u.name as name, u.lastname as lastname, u.dni as dni, u.email as email, r.role as role , r.id as role_id FROM users u JOIN user_roles ur ON u.id = ur.user_id JOIN roles r ON ur.role_id = r.id WHERE u.visible = true');
     res.json(result.rows);
   } catch (err) {
     console.error(err);

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { getUserTutor } from "../../services/Users.service";
 import { saveStudent, updateStudent } from "../../services/Students.service"
-import { getEducationalPrograms } from "../../services/educationalPrograms.service";
+import { getGroups } from "../../services/Groups.service";
 export default function StudentForm() {
   const navigate = useNavigate();
 
@@ -10,7 +10,7 @@ export default function StudentForm() {
   const student = location.state?.selectedRow
 
   const [usersTutor, setUsersTutor] = useState([])
-  const [educationalPrograms, setEducationalPrograms] = useState([])
+  const [groups, setGroups] = useState([])
 
 
   const [studentForm, setStudentForm] = useState({
@@ -24,7 +24,7 @@ export default function StudentForm() {
     tutor: student?.tutor || "",
     tutor_id: student?.tutor_id || "",
     educational_program: student?.educational_program || "",
-    educational_program_id: student?.educational_program_id || ""
+    group_id: student?.group_id || ""
   })
 
   const handleSave = (e) => {
@@ -76,16 +76,17 @@ export default function StudentForm() {
       }
 
     }
-    const getAllEducationalPrograms = async () => {
+    const geAllGroups = async () => {
       try {
-        const programs = await getEducationalPrograms();
-        setEducationalPrograms(programs)
+        console.log(await getGroups())
+        const {data} = await getGroups();
+        setGroups(data)
       } catch (err) {
         console.log(err)
       }
     }
     getAllUsersTutor()
-    getAllEducationalPrograms()
+    geAllGroups()
   }, [])
 
   return (
@@ -179,17 +180,17 @@ export default function StudentForm() {
 
           {/* Tutor ID */}
           <div>
-            <label className="text-gray-600 font-medium">Programa Educativo</label>
+            <label className="text-gray-600 font-medium">Grupo</label>
             <select
               required
-              name="educational_Program_id"
-              value={studentForm.educational_program_id}
-              onChange={(e) => setStudentForm({ ...studentForm, educational_program_id: e.target.value })}
+              name="group_id"
+              value={studentForm.group_id}
+              onChange={(e) => setStudentForm({ ...studentForm, group_id: e.target.value })}
               className="mt-1 w-full border border-gray-300 rounded-lg p-2 bg-white focus:ring-2 focus:ring-blue-400 focus:border-transparent"
             >
               <option value="">Seleccione un programa</option>
 
-              {educationalPrograms.map(ed => (
+              {groups?.map(ed => (
                 <option key={ed.id} value={ed.id}>
                   {ed.name}
                 </option>

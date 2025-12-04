@@ -13,7 +13,9 @@ import UsersManagement from './pages/UsersManagement';
 import UsersForm from './components/usersManagementComponents/UsersForm'
 import ProgramsManagement from './pages/ProgramsManagement';
 import ProgramsForm from './components/programsManagementComponents/ProgramsForm';
-
+import IndividualPlansManagement from './pages/IndividualPlansManagement';
+import IndividualPlansForm from './components/individualPlansManagementComponents/IndividualPlansForm'
+import IndividualPlansReportForm from './components/individualPlansManagementComponents/IndividualPlansReportForm';
 
 function App() {
    return (
@@ -37,6 +39,9 @@ function App() {
          <Route path="users/form" element={<UsersForm />} />
          <Route path="programs" element={<ProgramsManagement />} />
          <Route path="programs/form" element={<ProgramsForm />} />
+         <Route path="individualplans" element={<IndividualPlansManagement />} />
+         <Route path="individualplans/form" element={<IndividualPlansForm />} />
+         <Route path="individualplans/form/report" element={<IndividualPlansReportForm />} />
         </Route>
 
         {/* Cualquier ruta desconocida*/}

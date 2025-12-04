@@ -78,7 +78,7 @@ export default function Navbar() {
           ) : null}
 
           {role === 'therapist' || role === 'teacher' || role === 'master' ? (
-            <Link to="Plans" className="hover:text-[#1791cd]">
+            <Link to="individualplans" className="hover:text-[#1791cd]">
               Planes
             </Link>
           ) : null}
