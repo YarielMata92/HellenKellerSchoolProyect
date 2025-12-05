@@ -58,7 +58,7 @@ export const getStudentsByTeacherId = async (req, res) => {
 
 export const updateStudent = async (req, res) => {
     try {
-        const { dni, name, lastname, second_lastname, birthdate, disability, tutor_id, educational_program_id, id } = req.body;
+        const { dni, name, lastname, second_lastname, birthdate, disability, tutor_id, group_id, id } = req.body;
 
         const result = await pool.query("UPDATE students SET dni = $1, name = $2, lastname = $3, second_lastname = $4, birthdate = $5, disability = $6, tutor_id = $7, group_id = $8 WHERE id = $9 RETURNING *;", [dni, name, lastname, second_lastname, birthdate, disability, tutor_id, group_id, id]);
 

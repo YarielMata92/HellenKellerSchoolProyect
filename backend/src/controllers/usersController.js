@@ -129,7 +129,7 @@ export const updateUser = async (req, res)=>{
 export const deleteUser = async(req, res)=>{
   try {
         const id = parseInt(req.params.id);
-        const result = await pool.query("UPDATE users set status = false WHERE id = $1 RETURNING *", [id])
+        const result = await pool.query("UPDATE users set visible = false WHERE id = $1 RETURNING *", [id])
 
         if (result.rowCount === 0) {
             return res.status(404).json({ message: "Usuario no encontrado" });
